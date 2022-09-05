@@ -3,7 +3,6 @@
 #include <numbers>
 #include <fstream>
 #include <string>
-#include <ctime>
 #include <cmath>
 
 namespace Homework1 {
@@ -12,7 +11,6 @@ namespace Homework1 {
     using std::ifstream;
     using std::sqrt, std::abs, std::sin, std::cos;
     using std::numbers::pi;
-    using std::clock, std::clock_t;
 
     const double eps = 1e-8;
 
@@ -52,9 +50,7 @@ namespace Homework1 {
         for (int i = 0; i < cnt; ++i) {
             double p, x, y;
             fin >> p >> x >> y;
-            auto start = clock();
             solve(p, x, y);
-            cout << "After " << clock() - start << " seconds.";
         }
         fin.close();
     }
