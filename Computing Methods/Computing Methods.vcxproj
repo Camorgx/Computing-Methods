@@ -130,13 +130,14 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Homework1.cpp" />
+    <ClCompile Include="Homework2.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="Homework1.txt" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Homework1.h" />
+    <ClInclude Include="Homeworks.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

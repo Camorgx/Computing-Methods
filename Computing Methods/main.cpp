@@ -1,4 +1,4 @@
-#include "Homework1.h"
+#include "Homeworks.h"
 
 int main() {
 	Homework1::test();

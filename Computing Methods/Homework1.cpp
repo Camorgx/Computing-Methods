@@ -2,7 +2,6 @@
 #include <iomanip>
 #include <numbers>
 #include <fstream>
-#include <string>
 #include <cmath>
 
 namespace Homework1 {
