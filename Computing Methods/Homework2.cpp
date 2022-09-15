@@ -4,16 +4,24 @@
 #include <fstream>
 #include <cmath>
 
-namespace Homework2 {
-    using std::cin, std::cout, std::endl;
-    using std::fixed, std::setprecision;
-    using std::ifstream;
+#include "Homework2.h"
 
-    const double eps = 1e-8;
+using std::cin, std::cout, std::endl;
+using std::fixed, std::setprecision;
+using std::ifstream;
 
-    void solve() {
-    }
+const double Eps = 1e-6;
+const double a = 0.5;
+const int n = 100;
 
-    void test() {
-    }
+void Homework2::Gauss(double eps) {
+
+}
+
+void Homework2::Gauss_Seidel(double eps) {
+
+}
+
+void Homework2::run_test() {
+
 }

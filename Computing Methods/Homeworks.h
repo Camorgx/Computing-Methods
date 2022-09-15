@@ -1,5 +1,4 @@
 #pragma once
 
-namespace Homework1 { void test(); }
-
-namespace Homework2 { void test(); }
+#include "Homework1.h"
+#include "Homework2.h"

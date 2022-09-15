@@ -106,6 +106,7 @@
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp20</LanguageStandard>
       <LanguageStandard_C>stdc17</LanguageStandard_C>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -137,7 +138,10 @@
     <Text Include="Homework1.txt" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Homework1.h" />
+    <ClInclude Include="Homework2.h" />
     <ClInclude Include="Homeworks.h" />
+    <ClInclude Include="ITestable.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
