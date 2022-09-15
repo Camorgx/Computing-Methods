@@ -1,6 +1,7 @@
 #include "Homeworks.h"
 
 int main() {
-	Homework1::test();
+	ITestable* test = new Homework1;
+	test->run_test();
 	return 0;
 }
