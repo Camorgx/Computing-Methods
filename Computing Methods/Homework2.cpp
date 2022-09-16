@@ -19,7 +19,7 @@ vector<double> Homework2::Gauss(double eps) {
 	for (int i = 0; i < n; ++i) {
 		int k = i;
 		for (int j = i + 1; j < n; ++j)
-			if (abs(A[k][i]) < abs(A[k][j])) k = j;
+			if (abs(A[k][i]) < abs(A[j][i])) k = j;
 		swap(A[k], A[i]);
 		swap(b[k], b[i]);
 		for (int j = i + 1; j < n; ++j) {
