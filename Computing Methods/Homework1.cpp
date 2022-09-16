@@ -12,8 +12,6 @@ using std::ifstream;
 using std::sqrt, std::abs, std::sin, std::cos;
 using std::numbers::pi;
 
-const double eps = 1e-8;
-
 void Homework1::solve(double p, double x, double y) {
     double l = pi / 2, r = pi;
     do {

@@ -136,6 +136,7 @@
   </ItemGroup>
   <ItemGroup>
     <Text Include="Homework1.txt" />
+    <Text Include="Homework2.txt" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Homework1.h" />
