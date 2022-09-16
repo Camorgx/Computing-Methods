@@ -9,7 +9,7 @@
 
 using std::move;
 using std::vector;
-using std::swap, std::max;
+using std::swap;
 using std::abs, std::max;
 using std::cout, std::endl;
 using std::fixed, std::setprecision;
