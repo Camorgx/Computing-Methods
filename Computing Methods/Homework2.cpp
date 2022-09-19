@@ -98,9 +98,9 @@ void Homework2::refresh_matrix(double eps) {
 	vector<double> tmp2(n - 1);
 	tmp2[(size_t)n - 3] = eps;
 	tmp2[(size_t)n - 2] = -(2 * eps + h);
-	A.emplace_back(tmp2);
+	A.emplace_back(move(tmp2));
 
-	// Ë¢ÐÂ¾ØÕó B
+	// Ë¢ÐÂ¾ØÕó b
 	b.clear();
 	b.emplace_back(0);
 	for (int i = 1; i < n - 2; ++i)
