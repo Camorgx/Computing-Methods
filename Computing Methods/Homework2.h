@@ -12,13 +12,17 @@ class Homework2 : public ITestable {
 
 	std::vector<std::vector<double>> A;
 	std::vector<double> b;
-
-	std::vector<double> Gauss(double eps);
-	std::vector<double> Gauss_Seidel(double eps);
+	
 	std::vector<double> get_precise(double eps);
 	void refresh_matrix(double eps);
-	void display_vector(const std::vector<double>& vec);
-	double get_norm(const std::vector<double>& vec);
 public:
+	using vector = std::vector<double>;
+	using matrix = std::vector<std::vector<double>>;
+	static void display_vector(const vector& vec);
+	// get the infinity norm of vec
+	static double get_norm(const vector& vec);
+	static vector Gauss(const matrix& A, const vector& b);
+	static vector Gauss_Seidel(const matrix& origin_A, 
+		const vector& origin_b, double eps);
 	void run_test();
 };

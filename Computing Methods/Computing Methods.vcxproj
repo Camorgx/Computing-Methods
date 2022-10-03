@@ -135,6 +135,7 @@
   <ItemGroup>
     <ClCompile Include="Homework1.cpp" />
     <ClCompile Include="Homework2.cpp" />
+    <ClCompile Include="Homework3.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -144,6 +145,7 @@
   <ItemGroup>
     <ClInclude Include="Homework1.h" />
     <ClInclude Include="Homework2.h" />
+    <ClInclude Include="Homework3.h" />
     <ClInclude Include="Homeworks.h" />
     <ClInclude Include="ITestable.h" />
   </ItemGroup>
