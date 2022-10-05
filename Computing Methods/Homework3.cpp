@@ -36,6 +36,9 @@ void Homework3::run_test() {
             Homework2::display_vector(Y[i]);
         }
         cout << endl;
+        for (int i = 0; i < egvalue.size(); ++i)
+            cout << "lambda[" << i << "] = " << egvalue[i] << endl;
+        cout << endl;
         cout << "eigenvalue = " << eigenvalue << endl;
         cout << "eigenvector = ";
         Homework2::display_vector(eigenvector);
@@ -119,6 +122,7 @@ double Homework3::get_norm(const matrix& mat) {
 int Homework3::anti_exponentiation(const matrix& a, double& eigenvalue, vector& eigenvector) {
     X.clear();
     Y.clear();
+    egvalue.clear();
     size_t n = a.size();
     vector x0(n, 1);
     X.emplace_back(x0);
@@ -135,7 +139,8 @@ int Homework3::anti_exponentiation(const matrix& a, double& eigenvalue, vector& 
         vector x1 = Doolittle_solve(y, l, u);
         X.emplace_back(x1);
         double eigevalue1 = Homework2::get_norm(x1);
-        if (std::abs(eigevalue1 - eigevalue0) < eps) {
+        egvalue.emplace_back(1 / eigevalue1);
+        if (std::abs(1 / eigevalue1 - 1 / eigevalue0) < eps) {
             eigenvector = std::move(y);
             eigenvalue =  1 / eigevalue1;
             return cnt;

@@ -7,6 +7,7 @@
 class Homework3 : public ITestable {
 	const double eps = 1e-5;
 	std::vector<std::vector<double>> X, Y;
+	std::vector<double> egvalue;
 public:
 	using matrix = std::vector<std::vector<double>>;
 	using vector = std::vector<double>;
