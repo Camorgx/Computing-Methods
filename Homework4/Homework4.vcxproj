@@ -21,8 +21,8 @@
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
-    <ProjectGuid>{727a8f36-034c-4150-b738-9cb822050f1b}</ProjectGuid>
-    <RootNamespace>ComputingMethods</RootNamespace>
+    <ProjectGuid>{373fd39f-20d0-4dce-8eb5-9de127490ea6}</ProjectGuid>
+    <RootNamespace>Homework4</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -121,9 +121,6 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <LanguageStandard>stdcpp20</LanguageStandard>
-      <LanguageStandard_C>stdc17</LanguageStandard_C>
-      <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -133,21 +130,13 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Homework1.cpp" />
-    <ClCompile Include="Homework2.cpp" />
-    <ClCompile Include="Homework3.cpp" />
-    <ClCompile Include="main.cpp" />
+    <ClCompile Include="Homework4.cpp" />
+    <ClCompile Include="Matrix.cpp" />
+    <ClCompile Include="Vector.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <Text Include="Homework1.txt" />
-    <Text Include="Homework2.txt" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="Homework1.h" />
-    <ClInclude Include="Homework2.h" />
-    <ClInclude Include="Homework3.h" />
-    <ClInclude Include="Homeworks.h" />
-    <ClInclude Include="ITestable.h" />
+    <ClInclude Include="Matrix.h" />
+    <ClInclude Include="Vector.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

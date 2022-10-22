@@ -4,7 +4,7 @@
 #include <fstream>
 #include <cmath>
 
-#include "Homework1.h"
+const double eps = 1e-8;
 
 using std::cin, std::cout, std::endl;
 using std::fixed, std::setprecision;
@@ -12,7 +12,7 @@ using std::ifstream;
 using std::sqrt, std::abs, std::sin, std::cos;
 using std::numbers::pi;
 
-void Homework1::solve(double p, double x, double y) {
+void solve(double p, double x, double y) {
     double l = pi / 2, r = pi;
     do {
         double theta = (l + r) / 2;
@@ -41,7 +41,7 @@ void Homework1::solve(double p, double x, double y) {
         << "R = (" << r_x << ", " << r_y << ")" << endl;
 }
 
-void Homework1::run_test() {
+int main() {
     ifstream fin("Homework1.txt");
     int cnt;
     fin >> cnt;
@@ -51,4 +51,5 @@ void Homework1::run_test() {
         solve(p, x, y);
     }
     fin.close();
+    return 0;
 }

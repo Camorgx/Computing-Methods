@@ -2,9 +2,13 @@
 #include <iomanip>
 #include <numbers>
 #include <fstream>
+#include <vector>
 #include <cmath>
 
-#include "Homework2.h"
+const double Eps = 1e-6;
+const double a = 0.5;
+const int n = 100;
+const double h = 1.0 / n;
 
 using std::move;
 using std::swap;
@@ -12,7 +16,13 @@ using std::abs, std::max, std::exp;
 using std::cout, std::endl;
 using std::ifstream;
 
-Homework2::vector Homework2::Gauss(const matrix& origin_A, const vector& origin_b) {
+using vector = std::vector<double>;
+using matrix = std::vector<std::vector<double>>;
+
+std::vector<std::vector<double>> A;
+std::vector<double> b;
+
+vector Gauss(const matrix& origin_A, const vector& origin_b) {
 	matrix A(origin_A);
 	vector b(origin_b);
 	int n = static_cast<int>(A.size());
@@ -37,9 +47,14 @@ Homework2::vector Homework2::Gauss(const matrix& origin_A, const vector& origin_
 	return b;
 }
 
-Homework2::vector Homework2::Gauss_Seidel(const matrix& origin_A, 
-	const vector& origin_b, double eps) 
-{
+double get_norm(const vector& vec) {
+	double norm = 0;
+	for (double x : vec)
+		norm = max(norm, abs(x));
+	return norm;
+}
+
+vector Gauss_Seidel(const matrix& origin_A, const vector& origin_b, double eps) {
 	matrix r;
 	matrix A(origin_A);
 	vector b(origin_b);
@@ -69,7 +84,7 @@ Homework2::vector Homework2::Gauss_Seidel(const matrix& origin_A,
 	return x0;
 }
 
-Homework2::vector Homework2::get_precise(double eps) {
+vector get_precise(double eps) {
 	vector ans;
 	for (int i = 1; i <= n - 1; ++i) {
 		double x = i * h;
@@ -79,14 +94,7 @@ Homework2::vector Homework2::get_precise(double eps) {
 	return ans;
 }
 
-double Homework2::get_norm(const vector& vec) {
-	double norm = 0;
-	for (double x : vec)
-		norm = max(norm, abs(x));
-	return norm;
-}
-
-void Homework2::refresh_matrix(double eps) {
+void refresh_matrix(double eps) {
 	// Ë¢ÐÂÏµÊý¾ØÕó A
 	A.clear();
 	vector tmp1(n - 1);
@@ -113,14 +121,14 @@ void Homework2::refresh_matrix(double eps) {
 	b.emplace_back(a * h * h - (eps + h));
 }
 
-void Homework2::display_vector(const vector& vec) {
+void display_vector(const vector& vec) {
 	cout << '(';
 	for (int i = 0; i < vec.size() - 1; ++i)
 		cout << vec[i] << ", ";
 	cout << vec[vec.size() - 1] << ')' << endl;
 }
 
-void Homework2::run_test() {
+int main() {
 	int testCnt;
 	ifstream fin("Homework2.txt");
 	fin >> testCnt;
@@ -149,4 +157,5 @@ void Homework2::run_test() {
 		cout << endl;
 	}
 	fin.close();
+	return 0;
 }

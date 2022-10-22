@@ -18,39 +18,10 @@
     <ClCompile Include="Homework1.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="main.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="Homework2.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="Homework3.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Text Include="Homework1.txt">
       <Filter>资源文件</Filter>
     </Text>
-    <Text Include="Homework2.txt">
-      <Filter>资源文件</Filter>
-    </Text>
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="Homeworks.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="ITestable.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="Homework1.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="Homework2.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="Homework3.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
   </ItemGroup>
 </Project>
