@@ -43,8 +43,8 @@ Matrix::Matrix(std::initializer_list<std::initializer_list<double>> list) {
 	}
 }
 
-Vector& Matrix::operator[](size_t index) {
-	return dat.at(index);
+Vector& Matrix::operator[](size_t index) const {
+	return const_cast<Vector&>(dat.at(index));
 }
 
 Matrix Matrix::operator-() const {
@@ -66,7 +66,7 @@ Matrix Matrix::operator-(const Matrix& another) const {
 	return res;
 }
 
-Matrix Matrix::operator*(Matrix& another) {
+Matrix Matrix::operator*(const Matrix& another) const {
 	if (columnCnt != another.rowCnt)
 		throw std::runtime_error("Invliad size for multiply operation.");
 	Matrix res(rowCnt, another.columnCnt);
@@ -80,7 +80,23 @@ Matrix Matrix::operator*(Matrix& another) {
 	return res;
 }
 
-const Matrix& Matrix::operator+=(const Matrix& another) {
+Vector Matrix::operator*(const Vector& another) const {
+	size_t n = another.length();
+	if (columnCnt != n)
+		throw std::runtime_error("Invliad size for multiply operation.");
+	Vector res(n);
+	for (size_t i = 0; i < rowCnt; ++i)
+		res[i] = dat[i] * another;
+	return res;
+}
+
+Matrix Matrix::operator*(double num) const {
+	Matrix res(*this);
+	res *= num;
+	return res;
+}
+
+Matrix& Matrix::operator+=(const Matrix& another) {
 	if (!(rowCnt == another.rowCnt && columnCnt == another.columnCnt))
 		throw std::runtime_error("Invliad size for add operation.");
 	for (size_t i = 0; i < rowCnt; ++i)
@@ -88,7 +104,7 @@ const Matrix& Matrix::operator+=(const Matrix& another) {
 	return *this;
 }
 
-const Matrix& Matrix::operator-=(const Matrix& another) {
+Matrix& Matrix::operator-=(const Matrix& another) {
 	if (!(rowCnt == another.rowCnt && columnCnt == another.columnCnt))
 		throw std::runtime_error("Invliad size for minus operation.");
 	for (size_t i = 0; i < rowCnt; ++i)
@@ -96,8 +112,14 @@ const Matrix& Matrix::operator-=(const Matrix& another) {
 	return *this;
 }
 
-const Matrix& Matrix::operator*=(Matrix& another) {
+Matrix& Matrix::operator*=(Matrix& another) {
 	*this = *this * another;
+	return *this;
+}
+
+Matrix& Matrix::operator*=(double num) {
+	for (Vector& row : dat)
+		row *= num;
 	return *this;
 }
 
@@ -121,5 +143,18 @@ std::string Matrix::to_string() const {
 		res += row + ";\n";
 	}
 	res += "]";
+	return res;
+}
+
+Matrix Matrix::eye(size_t size) {
+	Matrix res(size, size);
+	for (size_t i = 0; i < size; ++i)
+		res[i][i] = 1;
+	return res;
+}
+
+Matrix operator*(double num, const Matrix& a) {
+	Matrix res(a);
+	res *= num;
 	return res;
 }

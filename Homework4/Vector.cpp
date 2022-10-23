@@ -1,9 +1,11 @@
 #include "Vector.h"
+
+#include <cmath>
 #include <format>
 #include <exception>
 
-double& Vector::operator[](size_t index) {
-	return dat.at(index);
+double& Vector::operator[](size_t index) const {
+	return const_cast<double&>(dat.at(index));
 }
 
 Vector Vector::operator+(const Vector& another) const {
@@ -36,7 +38,19 @@ double Vector::operator*(const Vector& another) const {
 	return res;
 }
 
-const Vector& Vector::operator+=(const Vector& another) {
+Vector Vector::operator*(double num) const {
+	Vector res(*this);
+	res *= num;
+	return res;
+}
+
+Vector& Vector::operator*=(double num) {
+	for (double& x : dat)
+		x *= num;
+	return *this;
+}
+
+Vector& Vector::operator+=(const Vector& another) {
 	if (len != another.len)
 		throw std::runtime_error(std::format(
 			"Invalid vector length: {0} and {1}.", len, another.len));
@@ -45,7 +59,7 @@ const Vector& Vector::operator+=(const Vector& another) {
 	return *this;
 }
 
-const Vector& Vector::operator-=(const Vector& another) {
+Vector& Vector::operator-=(const Vector& another) {
 	if (len != another.len)
 		throw std::runtime_error(std::format(
 			"Invalid vector length: {0} and {1}.", len, another.len));
@@ -60,5 +74,25 @@ std::string Vector::to_string() const {
 	for (int i = 0; i < len - 1; ++i)
 		res += std::format("{0:.4f}, ", dat[i]);
 	res += std::format("{0:.4f})", dat.back());
+	return res;
+}
+
+double Vector::mod() const {
+	double res = 0;
+	for (double x : dat)
+		res += x * x;
+	return std::sqrt(res);
+}
+
+Vector& Vector::unitization() {
+	double square = mod();
+	if (square != 0)
+		*this *= 1 / mod();
+	return *this;
+}
+
+Vector operator*(double num, const Vector& a) {
+	Vector res(a);
+	res *= num;
 	return res;
 }
