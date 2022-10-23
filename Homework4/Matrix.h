@@ -8,8 +8,9 @@ class Matrix {
 public:
 	Matrix() = default;
 	Matrix(size_t rowSize, size_t columnSize);
-	Matrix(std::initializer_list<Vector> list);
-	Matrix(std::initializer_list<std::initializer_list<double>> list);
+	Matrix(const std::initializer_list<Vector>& list);
+	Matrix(const std::initializer_list<std::initializer_list<double>>& list);
+	Matrix(const std::vector<Vector>& data);
 
 	Vector& operator[](size_t index) const;
 	Matrix operator-() const;
@@ -26,7 +27,7 @@ public:
 
 	size_t row_size() const { return rowCnt; }
 	size_t column_size() const { return columnCnt; }
-	Matrix transpose();
+	Matrix transpose() const;
 	std::string to_string() const;
 	const auto begin() const { return dat.begin(); }
 	const auto end() const { return dat.end(); }

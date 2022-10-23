@@ -9,7 +9,7 @@ Matrix::Matrix(size_t row, size_t column) {
 		dat.emplace_back(column);
 }
 
-Matrix::Matrix(std::initializer_list<Vector> list) {
+Matrix::Matrix(const std::initializer_list<Vector>& list) {
 	rowCnt = list.size();
 	bool first = true;
 	size_t prev = 0;
@@ -26,7 +26,7 @@ Matrix::Matrix(std::initializer_list<Vector> list) {
 	}
 }
 
-Matrix::Matrix(std::initializer_list<std::initializer_list<double>> list) {
+Matrix::Matrix(const std::initializer_list<std::initializer_list<double>>& list) {
 	rowCnt = list.size();
 	bool first = true;
 	size_t prev = 0;
@@ -40,6 +40,16 @@ Matrix::Matrix(std::initializer_list<std::initializer_list<double>> list) {
 			throw std::invalid_argument("Invalid initializer for matrix.");
 		dat.emplace_back(l);
 		prev = l.size();
+	}
+}
+
+Matrix::Matrix(const std::vector<Vector>& data) {
+	rowCnt = data.size();
+	columnCnt = data[0].length();
+	for (size_t i = 0; i < rowCnt; ++i) {
+		if (data[i].length() != columnCnt)
+			throw std::invalid_argument("Invalid initializer for matrix.");
+		dat.emplace_back(data[i]);
 	}
 }
 
@@ -124,7 +134,7 @@ Matrix& Matrix::operator*=(double num) {
 }
 
 
-Matrix Matrix::transpose() {
+Matrix Matrix::transpose() const {
 	Matrix res(columnCnt, rowCnt);
 	for (size_t i = 0; i < rowCnt; ++i) {
 		for (size_t j = 0; j < columnCnt; ++j) {

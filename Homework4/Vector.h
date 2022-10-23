@@ -11,7 +11,7 @@ public:
 	Vector() = default;
 	Vector(size_t size) : dat(size), len(size) { }
 	Vector(const std::vector<double>& vec) : dat(vec), len(vec.size()) { }
-	Vector(std::initializer_list<double> list) : dat(list), len(list.size()) { }
+	Vector(const std::initializer_list<double>& list) : dat(list), len(list.size()) { }
 	
 	double& operator[](size_t index) const;
 	Vector operator+(const Vector& another) const;

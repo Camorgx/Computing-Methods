@@ -2,7 +2,9 @@
 
 #include <algorithm>
 #include <cmath>
+#include <cstdio>
 #include <exception>
+#include <format>
 #include <iostream>
 
 Vector get_eigenvector(const Matrix& origin_A, double eigenvalue) {
@@ -126,13 +128,62 @@ void SVD(const Matrix& origin_a, Matrix& u, Matrix& v, Matrix& omega, const doub
 	v = v.transpose();
 }
 
+// 返回数组的第一维表示基，第二维是对应的坐标
+auto PCA(std::vector<Vector>& data, double eps, int k) {
+	std::vector<std::vector<double>> res;
+	Vector sum(data[0].length());
+	size_t data_size = data.size();
+	for (const auto& dat : data)
+		sum += dat;
+	sum *= 1.0 / data_size;
+	for (auto& dat : data)
+		dat -= sum;
+	Matrix x(data);
+	x = x.transpose();
+	Matrix covariance = 1.0 / x.column_size() * x * x.transpose();
+	std::cout << "Covariance matrix: " << covariance.to_string() << std::endl;
+	auto eigenvalues = Jacobi(covariance, eps);
+	std::sort(eigenvalues.begin(), eigenvalues.end(), std::greater<double>());
+	std::vector<Vector> e;
+	for (int i = 0; i < k; ++i) {
+		e.emplace_back(get_eigenvector(covariance, eigenvalues[i]).unitization());
+	}
+	for (int i = 0; i < k; ++i) {
+		res.emplace_back(data_size);
+		for (size_t j = 0; j < data_size; ++j) {
+			res[i][j] = data[j] * e[i];
+		}
+	}
+	return res;
+}
+
 int main() {
-	Matrix a = { { 0, 1 }, { 1, 1 }, { 1, 0 } };
 	const double eps = 1e-6;
-	Matrix u, v, omega;
-	SVD(a, u, v, omega, eps);
-	std::cout << "u = " << u.to_string() << std::endl;
-	std::cout << "v = " << v.to_string() << std::endl;
-	std::cout << "omega = " << omega.to_string() << std::endl;
+	std::FILE* fin;
+	errno_t err = fopen_s(&fin, "iris.txt", "r");
+	if (!fin) {
+		std::cout << "Failed to open file iris.txt.\n";
+		return 0;
+	}
+	std::vector<Vector> data;
+	for (int j = 0; j < 150; ++j) {
+		double dat[4];
+		int id;
+		fscanf_s(fin, "%lf,%lf,%lf,%lf,%d",
+			dat, dat + 1, dat + 2, dat + 3, &id);
+		data.emplace_back(Vector { dat[0], dat[1], dat[2], dat[3] });
+	}
+	auto res = PCA(data, eps, 2);
+	std::string output_x = "x = [";
+	std::string output_y = "y = [";
+	for (int i = 0; i < 149; ++i) {
+		output_x += std::format("{0:.4f}, ", res[0][i]);
+		output_y += std::format("{0:.4f}, ", res[1][i]);
+	}
+	output_x += std::format("{0:.4f}]", res[0][149]);
+	output_y += std::format("{0:.4f}]", res[1][149]);
+	std::cout << output_x << std::endl;
+	std::cout << output_y << std::endl;
+	std::fclose(fin);
     return 0;
 }
