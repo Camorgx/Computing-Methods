@@ -49,8 +49,11 @@ std::vector<double> Jacobi(const Matrix& origin_A, const double eps) {
 	if (a.column_size() != a.row_size())
 		throw std::invalid_argument("Jacobi Algorithm requires square matrix.");
 	int n = static_cast<int>(a.column_size());
-	while (item_square_sum(a) > eps) {
-		// 选取对角线按模最大元素
+	double sum = 0;
+	while ((sum = item_square_sum(a)) > eps) {
+		std::cout << std::format("The sum of squares of"
+			"non-diagonal elements: {0:.4f}", sum) << std::endl;
+		// 选取非对角线按模最大元素
 		double max_mod = 0;
 		int p = 0, q = 0;
 		for (int i = 0; i < n; ++i) {
@@ -159,6 +162,21 @@ auto PCA(std::vector<Vector>& data, double eps, int k) {
 
 int main() {
 	const double eps = 1e-6;
+
+	Matrix A = Matrix::random_initialize(4, 3);
+	std::cout << "Random matrix A generated: " << A.to_string() << std::endl;
+	auto eigen = Jacobi(A * A.transpose(), eps);
+	std::cout << "Eigenvalues of A: ";
+	for (double value : eigen)
+		std::cout << std::format("{0:.4f} ", value);
+	std::cout << std::endl;
+	Matrix u, omega, v;
+	SVD(A, u, v, omega, eps);
+	std::cout << "u = " << u.to_string() << std::endl;
+	std::cout << "vt = " << v.transpose().to_string() << std::endl;
+	std::cout << "omega = " << omega.to_string() << std::endl;
+	std::cout << std::endl;
+
 	std::FILE* fin;
 	errno_t err = fopen_s(&fin, "iris.txt", "r");
 	if (!fin) {
@@ -173,6 +191,7 @@ int main() {
 			dat, dat + 1, dat + 2, dat + 3, &id);
 		data.emplace_back(Vector { dat[0], dat[1], dat[2], dat[3] });
 	}
+	std::fclose(fin);
 	auto res = PCA(data, eps, 2);
 	std::string output_x = "x = [";
 	std::string output_y = "y = [";
@@ -184,6 +203,5 @@ int main() {
 	output_y += std::format("{0:.4f}]", res[1][149]);
 	std::cout << output_x << std::endl;
 	std::cout << output_y << std::endl;
-	std::fclose(fin);
     return 0;
 }

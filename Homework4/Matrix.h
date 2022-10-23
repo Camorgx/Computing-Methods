@@ -33,4 +33,5 @@ public:
 	const auto end() const { return dat.end(); }
 
 	static Matrix eye(size_t size);
+	static Matrix random_initialize(size_t row, size_t column);
 };

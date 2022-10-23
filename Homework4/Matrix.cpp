@@ -1,6 +1,7 @@
 #include "Matrix.h"
 
 #include <exception>
+#include <random>
 
 Matrix::Matrix(size_t row, size_t column) {
 	rowCnt = row; 
@@ -160,6 +161,17 @@ Matrix Matrix::eye(size_t size) {
 	Matrix res(size, size);
 	for (size_t i = 0; i < size; ++i)
 		res[i][i] = 1;
+	return res;
+}
+
+Matrix Matrix::random_initialize(size_t row, size_t column) {
+	Matrix res(row, column);
+	std::random_device rd;
+	std::mt19937_64 gen(rd());
+	std::uniform_real_distribution<double> dis(0, 1);
+	for (size_t i = 0; i < row; ++i)
+		for (size_t j = 0; j < column; ++j)
+			res[i][j] = dis(gen);
 	return res;
 }
 
