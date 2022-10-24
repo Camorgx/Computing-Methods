@@ -51,8 +51,8 @@ std::vector<double> Jacobi(const Matrix& origin_A, const double eps) {
 	int n = static_cast<int>(a.column_size());
 	double sum = 0;
 	while ((sum = item_square_sum(a)) > eps) {
-		std::cout << std::format("The sum of squares of"
-			"non-diagonal elements: {0:.4f}", sum) << std::endl;
+		std::cout << std::format("The sum of squares of "
+			"non-diagonal elements: {0:g}", sum) << std::endl;
 		// 选取非对角线按模最大元素
 		double max_mod = 0;
 		int p = 0, q = 0;
@@ -98,7 +98,7 @@ std::vector<double> Jacobi(const Matrix& origin_A, const double eps) {
 	return res;
 }
 
-void SVD(const Matrix& origin_a, Matrix& u, Matrix& v, Matrix& omega, const double eps) {
+void SVD(const Matrix& origin_a, Matrix& u, Matrix& v, Matrix& sigma, const double eps) {
 	Matrix a(origin_a); // m * n
 	Matrix at = a.transpose(); // n * m
 	Matrix aat = a * at; // m * m
@@ -117,15 +117,15 @@ void SVD(const Matrix& origin_a, Matrix& u, Matrix& v, Matrix& omega, const doub
 	u = Matrix(m, m);
 	for (int i = 0; i < m; ++i)
 		u[i] = get_eigenvector(aat, lambda[i]).unitization();
-	omega = Matrix(m, n);
+	sigma = Matrix(m, n);
 	n = std::min(m, n);
 	for (size_t i = 0; i < n; ++i)
-		omega[i][i] = std::sqrt(lambda[i]);
+		sigma[i][i] = std::sqrt(lambda[i]);
 	v = Matrix(n, n);
 	for (int i = 0; i < n; ++i) {
 		if (lambda[i] == 0)
 			v[i] = (at * u[i]).unitization();
-		else v[i] = 1 / omega[i][i] * (at * u[i]);
+		else v[i] = 1 / sigma[i][i] * (at * u[i]);
 	}
 	u = u.transpose();
 	v = v.transpose();
@@ -170,11 +170,11 @@ int main() {
 	for (double value : eigen)
 		std::cout << std::format("{0:.4f} ", value);
 	std::cout << std::endl;
-	Matrix u, omega, v;
-	SVD(A, u, v, omega, eps);
+	Matrix u, sigma, v;
+	SVD(A, u, v, sigma, eps);
 	std::cout << "u = " << u.to_string() << std::endl;
 	std::cout << "vt = " << v.transpose().to_string() << std::endl;
-	std::cout << "omega = " << omega.to_string() << std::endl;
+	std::cout << "sigma = " << sigma.to_string() << std::endl;
 	std::cout << std::endl;
 
 	std::FILE* fin;
