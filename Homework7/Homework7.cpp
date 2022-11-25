@@ -48,8 +48,10 @@ int main() {
         }
         std::cout << std::format("x = {0}\n", to_string(point_x));
         std::cout << std::format("y = {0}\n", to_string(point_y));
+        std::cout << std::format("total cnt of calling: {0}\n", total_called_cnt);
+        std::cout << std::format("failed to meet eps cnt: {0}\n", failed_to_meet_eps_cnt);
         std::cout << std::format("percentage not meet eps = {0:.2f}%\n", 
-            static_cast<double>(failed_to_meet_eps_cnt) / total_called_cnt);
+            static_cast<double>(failed_to_meet_eps_cnt) / total_called_cnt * 100);
         std::cout << std::endl;
     }
     return 0;
