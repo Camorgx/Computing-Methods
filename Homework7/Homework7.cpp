@@ -34,7 +34,9 @@ std::string to_string(const std::vector<double>& vec) {
 
 int main() {
     const int M_cases[] = { 4, 8, 12, 16, 20 };
-    const double t_cases[] = { 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0 };
+    std::vector<double> t_cases = { 0.1 };
+    for (int i = 1; i < 100; ++i)
+        t_cases.emplace_back(t_cases.back() + 0.1);
     for (const int m : M_cases) {
         std::cout << std::format("M = {0}\n", M = m);
         failed_to_meet_eps_cnt = 0;
