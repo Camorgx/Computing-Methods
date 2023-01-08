@@ -13,7 +13,8 @@ public:
 	Vector(const std::vector<double>& vec) : dat(vec), len(vec.size()) { }
 	Vector(const std::initializer_list<double>& list) : dat(list), len(list.size()) { }
 	
-	double& operator[](size_t index) const;
+	double& operator[](size_t index);
+	const double& operator[](size_t index) const;
 	Vector operator+(const Vector& another) const;
 	Vector operator-(const Vector& another) const;
 	Vector operator-() const;

@@ -4,8 +4,12 @@
 #include <format>
 #include <exception>
 
-double& Vector::operator[](size_t index) const {
-	return const_cast<double&>(dat.at(index));
+double& Vector::operator[](size_t index) {
+	return dat.at(index);
+}
+
+const double& Vector::operator[](size_t index) const {
+	return dat.at(index);
 }
 
 Vector Vector::operator+(const Vector& another) const {
